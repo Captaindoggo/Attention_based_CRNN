@@ -11,6 +11,7 @@ import numpy as np
 import random
 from torch.optim import Adam
 import torch.nn.functional as F
+from torch.nn.utils import clip_grad_norm_ as clip
 
 
 
@@ -22,7 +23,7 @@ def set_seed(n):
     np.random.seed(n)
 
 
-def FA_FR_scores(preds, targets):
+def FAFR_scores(preds, targets):
     FA = sum(preds[targets == 0])/len(targets)
     FR = sum(targets[preds == 0])/len(targets)
     return FA, FR
@@ -118,7 +119,7 @@ if __name__ == '__main__':
             loss = F.nll_loss(pred, y)
             running_loss += loss.item()
             loss.backward()
-            torch.nn.utils.clip_grad_norm_(model.parameters(), 5)
+            clip(model.parameters(), 5)
 
             optimizer.step()
             ctr += 1
@@ -142,7 +143,7 @@ if __name__ == '__main__':
             val_ctr += 1
         val_preds = np.array(val_preds)
         true = np.array(true)
-        FA, FR = FA_FR_scores(val_preds, true)
+        FA, FR = FAFR_scores(val_preds, true)
         acc = accuracy_score(true, val_preds)
         print('train loss', running_loss / ctr, 'val loss', val_loss / val_ctr, 'val FA', FA, 'val FR', FR, 'val acc',
               acc)
