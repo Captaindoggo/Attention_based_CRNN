@@ -10,3 +10,5 @@ model.py contains Attention based CRNN model
 data.py contains all data preprocessing and loading functions
 
 main.py contains training
+
+homework_kws.ipynb contains all data loading, preprocessing, model training and examples of inference use
