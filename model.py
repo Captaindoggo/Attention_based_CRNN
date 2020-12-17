@@ -71,7 +71,7 @@ class AtnCRNN(nn.Module):
         return x, hidn
     
 
-    def predict(self, wav, melspec, confidence=0.3):
+    def predict(self, wav, melspec, confidence=0.25):
         flag_kw = False
         mel = melspec(wav).unsqueeze(0).to(self.device)
         kw_p = []
