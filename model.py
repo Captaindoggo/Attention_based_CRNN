@@ -1,3 +1,6 @@
+import torch
+import torch.nn as nn
+
 class Attention(nn.Module):
     def __init__(self, inn, linn, n_classes):
         super(Attention, self).__init__()
