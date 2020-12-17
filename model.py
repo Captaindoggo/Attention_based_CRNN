@@ -107,7 +107,8 @@ class AtnCRNN(nn.Module):
                 print('Audio includes keyword')
                 flag_kw = True
             i += self.ks
-        
+        if not flag_kw:
+          print('Audio does not include keyword')
         plt.plot(np.zeros(len(kw_p))+confidence, label='minimum confidence')
         plt.plot(kw_p, label = 'probabilities of keyword')
         plt.legend()
