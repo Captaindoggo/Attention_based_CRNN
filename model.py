@@ -71,16 +71,16 @@ class AtnCRNN(nn.Module):
         return x, hidn
     
 
-    def predict(self, wav, melspec, confidence=0.5):
+    def predict(self, wav, melspec, confidence=0.3):
         flag_kw = False
         mel = melspec(wav).unsqueeze(0).to(self.device)
         kw_p = []
         with torch.no_grad():
-          l = 100
+          l = 45
           r = mel.shape[2] - l+1
-          l = l - self.ks
           hidn = torch.zeros(self.num_layers*2, mel.shape[0], self.hidden).to(self.device)
-          outs, hidn = self.inference_crnn(mel[:, :, 0:l], hidn)
+          outs, hidn = self.inference_crnn(mel[:, :, :l], hidn)
+          l = l - self.ks
           xs = []
           for x in outs:
             x_ = self.attention.inference_layer(x)
