@@ -11,4 +11,4 @@ data.py contains all data preprocessing and loading functions
 
 main.py contains training
 
-homework_kws.ipynb contains all data loading, preprocessing, model training and examples of inference use
+homework_kws.ipynb contains all data loading, preprocessing, model training and examples of inference use (with model trained for 20 epochs)
